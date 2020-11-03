@@ -8,7 +8,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import org.example.demo.ticket.business.manager.TicketManager;
+import org.example.demo.ticket.business.contract.manager.TicketManager;
 import org.example.demo.ticket.model.bean.ticket.Ticket;
 import org.example.demo.ticket.model.exception.NotFoundException;
 import org.example.demo.ticket.model.recherche.ticket.RechercheTicket;
@@ -34,7 +34,22 @@ public class TicketResource {
     @GET
     @Path("{numero}")
     public Ticket get(@PathParam("numero") Long pNumero) throws NotFoundException {
-        TicketManager vTicketManager = new TicketManager();
+        TicketManager vTicketManager = new TicketManager() {
+            @Override
+            public Ticket getTicket(Long pNumero) throws NotFoundException {
+                return null;
+            }
+
+            @Override
+            public List<Ticket> getListTicket(RechercheTicket pRechercheTicket) {
+                return null;
+            }
+
+            @Override
+            public int getCountTicket(RechercheTicket pRechercheTicket) {
+                return 0;
+            }
+        };
         Ticket vTicket = vTicketManager.getTicket(pNumero);
         return vTicket;
     }
@@ -48,7 +63,22 @@ public class TicketResource {
     @GET
     @Path("search")
     public List<Ticket> search(@QueryParam("projetId") Integer pProjetId) {
-        TicketManager vTicketManager = new TicketManager();
+        TicketManager vTicketManager = new TicketManager() {
+            @Override
+            public Ticket getTicket(Long pNumero) throws NotFoundException {
+                return null;
+            }
+
+            @Override
+            public List<Ticket> getListTicket(RechercheTicket pRechercheTicket) {
+                return null;
+            }
+
+            @Override
+            public int getCountTicket(RechercheTicket pRechercheTicket) {
+                return 0;
+            }
+        };
         List<Ticket> vList = vTicketManager.getListTicket(new RechercheTicket()
                                                               .setProjetId(pProjetId));
         return vList;
