@@ -2,7 +2,7 @@ package org.example.demo.ticket.business.contract.manager;
 
 public interface ManagerFactory {
 
-    ProjetManager getProjetManager();
+   ProjetManager getProjetManager();
 
     void setProjetManager(ProjetManager pProjetManager);
 

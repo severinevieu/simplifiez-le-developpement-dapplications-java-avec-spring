@@ -6,7 +6,6 @@ import org.example.demo.ticket.business.contract.manager.TicketManager;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.naming.ldap.PagedResultsControl;
 
 @Named("managerFactory")
 public class ManagerFactoryImpl implements ManagerFactory {
@@ -15,7 +14,7 @@ public class ManagerFactoryImpl implements ManagerFactory {
     @Override
     public ProjetManager getProjetManager(){
         /*Pour eviter à chaque appelle de la méthode ProjectManager() de créer une nouvelle instance
-        return new ProjetManager();
+        return new ProjetDao();
         Utilisation injection de dependance*/
         return this.projetManager;
     }

@@ -3,7 +3,4 @@
        xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
             http://www.springframework.org/schema/beans/spring-beans.xsd">
-    <!-- Inclusion fichier context Spring-->
-    <import resource="classpath:/org.exemple.demo.ticket.batch/batchContext.xml"/>
-    <import resource="classpath:/org.exemple.demo.ticket.business/businessContext.xml"/>
 </beans>

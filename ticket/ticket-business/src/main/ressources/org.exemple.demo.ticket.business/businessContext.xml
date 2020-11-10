@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- ===== DECLARATION DES MANAGERS  plus besoin car appeler avec les annotations===== -->
+    
+    <!--Pour ne pas ce repeter dans tous les beans utilisation de spring pour réaliser un bean abstract-->
+    <bean id="abstractManager" abstract="true">
+        <property name="doaFactory" ref="doaFactory"/>
+    </bean>
+    
+    <bean id="projetManager" class="org.example.demo.ticket.business.impl.manager.Pro"></bean>
+    <bean id="ticketManager" class="org.example.demo.ticket.business.impl.manager.TicketManagerImpl"></bean>
+
+    <!-- =====  MANAGER FACTORY ===== -->
+    <bean id="managerFactory" class="org.example.demo.ticket.business.impl.manager.ManagerFactoryImpl">
+        <property name="projetManager" ref="projetManager"/>
+        <property name="ticketManager" ref="ticketManager"/>
+    </bean>
+</beans>

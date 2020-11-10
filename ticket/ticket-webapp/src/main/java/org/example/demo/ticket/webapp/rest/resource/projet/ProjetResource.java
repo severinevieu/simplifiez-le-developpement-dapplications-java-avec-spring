@@ -1,6 +1,6 @@
 package org.example.demo.ticket.webapp.rest.resource.projet;
 
-import org.example.demo.ticket.business.contract.manager.ProjetManager;
+import org.example.demo.ticket.business.contract.manager.ProjetDao;
 import org.example.demo.ticket.model.bean.projet.Projet;
 import org.example.demo.ticket.model.exception.NotFoundException;
 import org.example.demo.ticket.webapp.rest.resource.AbstractRessource;
@@ -32,7 +32,7 @@ public class ProjetResource extends AbstractRessource {
     @GET
     @Path("{id}")
     public Projet get(@PathParam("id") Integer pId) throws NotFoundException {
-        ProjetManager vProjetManager = getManagerFactory().getProjetManager();
+        ProjetDao vProjetManager = getManagerFactory().getProjetManager();
         Projet vProjet = vProjetManager.getProjet(pId);
         return vProjet;
     }
@@ -45,7 +45,7 @@ public class ProjetResource extends AbstractRessource {
      */
     @GET
     public List<Projet> get() {
-        ProjetManager vProjetManager = getManagerFactory().getProjetManager();
+        ProjetDao vProjetManager = getManagerFactory().getProjetManager();
         List<Projet> vListProjet = vProjetManager.getListProjet();
         return vListProjet;
     }

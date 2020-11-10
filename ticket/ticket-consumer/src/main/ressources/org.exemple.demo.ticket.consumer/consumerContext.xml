@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- ===== Déclaration des DAO ===== -->
+    <beans>
+        <bean id="projetDao" class="org.example.demo.ticket.consumer.impl.dao.DaoFactoryImpl">
+            <property name="ticketDao" ref="ticketDao" />
+            <property name="utilisateurDao" ref="utilisateurDao" />
+        </bean>
+
+        <bean id="ticketDao" class="org.example.demo.ticket.consumer.impl.dao.DaoFactoryImpl">
+            <property name="projetDao" ref="projetDao" />
+            <property name="utilisateurDao" ref="utilisateurDao" />
+        </bean>
+
+        <bean id="utilisateurDao" class="org.example.demo.ticket.consumer.impl.dao.UtilisateurDaoImpl" />
+    </beans>
+</beans>

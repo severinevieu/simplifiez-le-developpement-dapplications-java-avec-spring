@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Named //si non préciser prends le nom de la class pas default en camelCase
-public class TicketManagerImpl implements TicketManager {
+public class TicketManagerImpl extends AbstractManager implements TicketManager {
 
     @Override
     public Ticket getTicket(Long pNumero) throws NotFoundException {
