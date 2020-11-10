@@ -1,6 +1,8 @@
 package org.example.demo.ticket.webapp.rest.resource;
 
 
+import org.example.demo.ticket.business.contract.manager.ManagerFactory;
+
 public abstract class AbstractRessource {
 
     private static ManagerFactory managerFactory;
