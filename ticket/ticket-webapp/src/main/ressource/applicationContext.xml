@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+        xmlns="http://www.springframework.org/schema/beans"
+        xsi:schemaLocation="
+            http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context.xsd">
+
+  <!--  &lt;!&ndash; ===== DECLARATION DES MANAGERS  plus besoin car appeler avec les annotations===== &ndash;&gt;
+    <bean id="projetManager" class="org.example.demo.ticket.business.impl.manager.ProjetManagerImpl"></bean>
+    <bean id="ticketManager" class="org.example.demo.ticket.business.impl.manager.TicketManagerImpl"></bean>
+
+    &lt;!&ndash; =====  MANAGER FACTORY ===== &ndash;&gt;
+    <bean id="managerFactory" class="org.example.demo.ticket.business.impl.manager.ManagerFactoryImpl">
+        <property name="projetManager" ref="projetManager"/>
+        <property name="ticketManager" ref="ticketManager"/>
+    </bean>-->
+
+  <!-- C'est une solution pour déclarer les annotations
+
+   &lt;!&ndash; Prend en compte la configuration des injections(@Inject) &ndash;&gt;
+    <context:annotation-config></context:annotation-config>
+
+    &lt;!&ndash; scanne les packages pour trouver les beans déclarés (@Named) &ndash;&gt;
+    <context:component-scan base-package="org.example.demo.ticket"/>-->
+
+    <!-- =====  Injection ABSTRACT RESOURCE appel setter static ===== -->
+    <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="targetClass" value="org.example.demo.ticket.webapp.rest.resource.AbstractRessource"/>
+        <property name="targetMethod" value="setManagerFactory"/>
+        <property name="arguments" ref="managerFactory"/>
+    </bean>
+</beans>

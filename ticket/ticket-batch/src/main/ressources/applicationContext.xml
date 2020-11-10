@@ -9,11 +9,4 @@
         <property name="projetManager" ref="projetManager"/>
         <property name="ticketManager" ref="ticketManager"/>
     </bean>
-
-    <!-- =====  Injection ABSTRACT RESOURCE appel setter static ===== -->
-    <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
-        <property name="targetClass" value="org.example.demo.ticket.webapp.rest.resource.AbstractRessource"/>
-        <property name="targetMethod" value="setManagerFactory"/>
-        <property name="arguments" ref="managerFactory"/>
-    </bean>
 </beans>
