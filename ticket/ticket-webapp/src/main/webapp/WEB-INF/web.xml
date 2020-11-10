@@ -8,11 +8,12 @@
 </listener>
     <context-param>
             <param-name>contextConfigLocation</param-name>
-            <param-value>org.demo.example.ticket.webapp.bootstrap.SpringConfiguration</param-value>
+            <param-value>classpath:/bootstrapContext.xml</param-value>
     </context-param>
-    <context-param>
+
+    <!-- Version en declarant les beans annotation au lieu d'une classe disctinte <context-param>
         <param-name>contextClass</param-name>
         <param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
     </context-param>
-    <display-name>Ticket</display-name>
+    <display-name>Ticket</display-name>-->
 </web-app>
