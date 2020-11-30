@@ -9,27 +9,42 @@ import javax.inject.Named;
 
 @Named("managerFactory")
 public class ManagerFactoryImpl implements ManagerFactory {
-    @Inject
+
     private ProjetManager projetManager;
-    @Override
-    public ProjetManager getProjetManager(){
-        /*Pour eviter à chaque appelle de la méthode ProjectManager() de créer une nouvelle instance
-        return new ProjetDao();
-        Utilisation injection de dependance*/
-        return this.projetManager;
+    private TicketManager ticketManager;
+
+    public ManagerFactoryImpl() {
     }
-    public void setProjetManager(ProjetManager pProjetManager) {
-        this.projetManager = pProjetManager;
+
+    public ProjetManager getProjetManager() {
+        return projetManager;
     }
 
     @Inject
-    private TicketManager ticketManager;
-    @Override
-    public TicketManager getTicketManger(){
-        return this.ticketManager;
+    public void setProjetManager(ProjetManager pProjetManager) {
+        projetManager = pProjetManager;
     }
+
     @Override
-    public void setTicketManager(TicketManager ticketManager) {
-        this.ticketManager = ticketManager;
+    public TicketManager getTicketManger() {
+        return ticketManager;
     }
+
+    public TicketManager getTicketManager() {
+        return ticketManager;
+    }
+
+    @Inject
+    public void setTicketManager(TicketManager pTicketManager) {
+        ticketManager = pTicketManager;
+    }
+
+
+    @Inject
+    public  ManagerFactoryImpl(ProjetManager pProjetManager,
+                               TicketManager pTicketManager) {
+        this.projetManager = pProjetManager;
+        this.ticketManager = pTicketManager;
+    }
+
 }

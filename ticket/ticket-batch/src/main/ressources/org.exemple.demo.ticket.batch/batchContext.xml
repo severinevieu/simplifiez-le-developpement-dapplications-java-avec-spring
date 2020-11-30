@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns="http://www.springframework.org/schema/beans"
-       xsi:schemaLocation="
-            http://www.springframework.org/schema/beans
-            http://www.springframework.org/schema/beans/spring-beans.xsd">
-
-
+<beans>
     <!-- chargement du fichier conf/db-ticket.properties -->
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
@@ -16,8 +10,9 @@
         <property name="ignoreUnresolvablePlaceholders" value="false"/>
     </bean>
 
+
     <!-- création d'un bean javax.sql.DataSource en utilisant
-       des propriétés chargées depuis le fichier conf/db-ticket.properties -->
+         des propriétés chargées depuis le fichier conf/db-ticket.properties -->
     <bean id="dataSourceTicket" destroy-method="close"
           class="org.apache.commons.dbcp2.BasicDataSource">
         <property name="driverClassName" value="${database.ticket.driverClassName}"/>
@@ -25,4 +20,33 @@
         <property name="username" value="${database.ticket.username}"/>
         <property name="password" value="${database.ticket.password}"/>
     </bean>
+
+    <!-- injection de la javax.sql.DataSource "dataSourceTicket"
+         dans le bean parent des DAO -->
+    <bean id="abstractDao" abstract="true">
+        <property name="dataSourceTicket" ref="dataSourceTicket" />
+    </bean>
+
+    <bean id="projetDao" class="org.example.demo.ticket.consumer.impl.dao.ProjetDaoImpl"
+          parent="abstractDao" />
+    <bean id="ticketDao" class="org.example.demo.ticket.consumer.impl.dao.TicketDaoImpl"
+          parent="abstractDao" />
+</beans>
+
+
+<!-- Récupération de la ressource JNDI (java naming and directory interface) :
+     javax.sql.DataSource pour la base de données DB_TICKET -->
+<bean id="dataSourceTicket" class="org.springframework.jndi.JndiObjectFactoryBean">
+    <property name="jndiName" value="java:comp/env/jdbc/DB_TICKET" />
+</bean>
+
+<!-- Injection de la "dataSourceTicket" dans le bean parent des DAO -->
+<bean id="abstractDao" abstract="true">
+    <property name="dataSourceTicket" ref="dataSourceTicket" />
+</bean>
+
+<bean id="projetDao" class="org.example.demo.ticket.consumer.impl.dao.ProjetDaoImpl"
+      parent="abstractDao" />
+<bean id="ticketDao" class="org.example.demo.ticket.consumer.impl.dao.TicketDaoImpl"
+      parent="abstractDao" />
 </beans>

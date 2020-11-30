@@ -41,6 +41,17 @@
 
 
         <!-- ===== Bibliothèques tierces ===== -->
+        <!-- ===== Driver JDBC Postgre  ===== -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+        </dependency>
+        <!--Pool conection commons DBCP-->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-dbcp2</artifactId>
+            <version>2.1.1</version>
+        </dependency>
 
 
         <!-- ===== Tests ===== -->

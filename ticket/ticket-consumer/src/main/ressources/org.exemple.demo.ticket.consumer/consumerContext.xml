@@ -4,6 +4,13 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
             http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+
+    <!-- ===== DaoFactory ===== -->
+    <bean id="daoFactory" class="org.example.demo.ticket.consumer.impl.dao.DaoFactoryImpl">
+        <property name="projetDao" ref="projetDao" />
+        <property name="utilisateurDao" ref="utilisateurDao" />
+    </bean>
+
     <!-- ===== Déclaration des DAO ===== -->
     <beans>
         <bean id="projetDao" class="org.example.demo.ticket.consumer.impl.dao.DaoFactoryImpl">
