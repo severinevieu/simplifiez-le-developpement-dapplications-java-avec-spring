@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans>
-    <!-- chargement du fichier conf/db-ticket.properties -->
+  <!--  &lt;!&ndash; chargement du fichier conf/db-ticket.properties &ndash;&gt;
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
@@ -11,8 +11,8 @@
     </bean>
 
 
-    <!-- création d'un bean javax.sql.DataSource en utilisant
-         des propriétés chargées depuis le fichier conf/db-ticket.properties -->
+    &lt;!&ndash; création d'un bean javax.sql.DataSource en utilisant
+         des propriétés chargées depuis le fichier conf/db-ticket.properties &ndash;&gt;
     <bean id="dataSourceTicket" destroy-method="close"
           class="org.apache.commons.dbcp2.BasicDataSource">
         <property name="driverClassName" value="${database.ticket.driverClassName}"/>
@@ -21,8 +21,8 @@
         <property name="password" value="${database.ticket.password}"/>
     </bean>
 
-    <!-- injection de la javax.sql.DataSource "dataSourceTicket"
-         dans le bean parent des DAO -->
+    &lt;!&ndash; injection de la javax.sql.DataSource "dataSourceTicket"
+         dans le bean parent des DAO &ndash;&gt;
     <bean id="abstractDao" abstract="true">
         <property name="dataSourceTicket" ref="dataSourceTicket" />
     </bean>
@@ -31,16 +31,15 @@
           parent="abstractDao" />
     <bean id="ticketDao" class="org.example.demo.ticket.consumer.impl.dao.TicketDaoImpl"
           parent="abstractDao" />
-</beans>
 
 
-<!-- Récupération de la ressource JNDI (java naming and directory interface) :
-     javax.sql.DataSource pour la base de données DB_TICKET -->
+&lt;!&ndash; Récupération de la ressource JNDI (java naming and directory interface) :
+     javax.sql.DataSource pour la base de données DB_TICKET &ndash;&gt;
 <bean id="dataSourceTicket" class="org.springframework.jndi.JndiObjectFactoryBean">
     <property name="jndiName" value="java:comp/env/jdbc/DB_TICKET" />
 </bean>
 
-<!-- Injection de la "dataSourceTicket" dans le bean parent des DAO -->
+&lt;!&ndash; Injection de la "dataSourceTicket" dans le bean parent des DAO &ndash;&gt;
 <bean id="abstractDao" abstract="true">
     <property name="dataSourceTicket" ref="dataSourceTicket" />
 </bean>
@@ -49,4 +48,20 @@
       parent="abstractDao" />
 <bean id="ticketDao" class="org.example.demo.ticket.consumer.impl.dao.TicketDaoImpl"
       parent="abstractDao" />
+    -->
+
+        <!-- Chargement du fichier properties contenant
+            la configuration de la datasource vers DB_TICKET  -->
+        <bean id="dataSourceTicketConfiguration" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+            <property name="location" value="file:${application.home}/conf/db-ticket.properties"/>
+        </bean>
+
+        <!-- Création de la datasource "dataSourceTicket" -->
+        <bean id="dataSourceTicket"
+              class="org.apache.commons.dbcp2.BasicDataSourceFactory"
+              factory-method="createDataSource"
+              destroy-method="close">
+            <constructor-arg ref="dataSourceTicketConfiguration"/>
+        </bean>
+
 </beans>
